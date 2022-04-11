@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>todolist</title>
+    <script src="/vue.js"></script>
+    <style>
+        #app {
+            position: absolute;
+            left: 50%;
+            top: 35%;
+            width:200px;
+            height:100px;
+            margin-left:-100px;
+            margin-top:-20px;
+
+        }
+        li{
+            list-style: circle;
+        }
+    </style>
+</head>
+<body>
+<div id="app" >
+    <h1>To-Do-List</h1>
+    <input type="text" v-model="inputValue">
+    <button @click="handleBtnClick">提交</button>
+    <ul>
+        <li v-for="item in list">{{item}}</li>
+    </ul>
+</div>
+
+<script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+            inputValue:'',
+            list:[]
+        },
+        methods :{
+            handleBtnClick:function (){
+                this.list.push(this.inputValue)
+                this.inputValue = ''
+            }
+        }
+    })
+</script>
+</body>
+</html>
