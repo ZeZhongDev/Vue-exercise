@@ -27,7 +27,13 @@
     <button @click="handleBtnClick">提交</button>
     <ul>
 <!--        <li v-for="item in list">{{item}}</li>-->
-        <todo-list v-bind:content="item"  v-for="item in list"></todo-list>
+        <todo-list
+
+                :content="item"
+                v-for="(item,index) in list"
+                :index="index"
+                @delete="handleItemDelete"
+        ></todo-list>
     </ul>
 </div>
 <script>
@@ -40,10 +46,17 @@
     })*/
 // 局部组件
 var TodoList = {
-    props:['content'],
+    props:['content','index'],
     template:`
-        <li>{{content}}</li>
-        `
+        <li
+        @click="handleItemClick"
+        >{{content}}</li>
+        `,
+    methods:{
+        handleItemClick:function (){
+            this.$emit('delete',this.index)
+        }
+    }
 }
 
 
@@ -60,6 +73,9 @@ var TodoList = {
             handleBtnClick:function (){
                 this.list.push(this.inputValue)
                 this.inputValue = ''
+            },
+            handleItemDelete:function (index){
+                this.list.splice(index,1)
             }
         }
     })
